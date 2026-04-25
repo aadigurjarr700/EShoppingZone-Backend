@@ -8,6 +8,7 @@ namespace ProfileService.Interfaces
     {
         Task<ProfileResponseDto> AddCustomerProfile(RegisterDto registerDto);
         Task<ProfileResponseDto> AddMerchantProfile(RegisterDto registerDto);
+        Task<ProfileResponseDto> AddAdminProfile(RegisterDto registerDto);
         Task<IList<ProfileResponseDto>> GetAllProfiles();
         Task<ProfileResponseDto> GetByProfileId(int profileId);
         Task<ProfileResponseDto> FindByMobileNo(long mobileNo);

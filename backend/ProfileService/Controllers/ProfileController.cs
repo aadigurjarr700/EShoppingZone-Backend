@@ -33,6 +33,14 @@ namespace ProfileService.Controllers
             return Ok(result);
         }
 
+        [HttpPost("addAdmin")]
+        [Authorize(Roles = "ADMIN")]
+        public async Task<IActionResult> AddAdminProfile([FromBody] RegisterDto registerDto)
+        {
+            var result = await _profileService.AddAdminProfile(registerDto);
+            return Ok(result);
+        }
+
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
@@ -49,7 +57,7 @@ namespace ProfileService.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "ADMIN,CUSTOMER,MERCHANT")]
+        [Authorize(Roles = "ADMIN,MERCHANT")]
         public async Task<IActionResult> GetAllProfiles()
         {
             var profiles = await _profileService.GetAllProfiles();
@@ -65,7 +73,7 @@ namespace ProfileService.Controllers
         }
 
         [HttpGet("phone/{phone}")]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "ADMIN,MERCHANT")]
         public async Task<IActionResult> GetByPhoneNumber(long phone)
         {
             var profile = await _profileService.FindByMobileNo(phone);
@@ -73,7 +81,7 @@ namespace ProfileService.Controllers
         }
 
         [HttpGet("name/{name}")]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "ADMIN,MERCHANT")]
         public async Task<IActionResult> GetByUserName(string name)
         {
             var profile = await _profileService.GetByUserName(name);

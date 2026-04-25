@@ -61,7 +61,15 @@ namespace CartService.Controllers
         public async Task<IActionResult> UpdateCart([FromQuery] int productId, [FromQuery] int quantity)
         {
             var userId = GetCurrentUserId();
-            var cart = await _cartService.UpdateCart(userId, productId, quantity);
+            var cart = await _cartService.SetCartQuantity(userId, productId, quantity);
+            return Ok(cart);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> ClearCart()
+        {
+            var userId = GetCurrentUserId();
+            var cart = await _cartService.ClearCart(userId);
             return Ok(cart);
         }
     }

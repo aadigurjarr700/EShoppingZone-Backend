@@ -35,6 +35,11 @@ namespace ProfileService.Services
             return await RegisterUser(registerDto, "MERCHANT");
         }
 
+        public async Task<ProfileResponseDto> AddAdminProfile(RegisterDto registerDto)
+        {
+            return await RegisterUser(registerDto, "ADMIN");
+        }
+
         private async Task<ProfileResponseDto> RegisterUser(RegisterDto registerDto, string role)
         {
             var existingUser = await _profileRepository.FindByEmailIdAsync(registerDto.EmailId);
@@ -86,9 +91,9 @@ namespace ProfileService.Services
             return MapToResponseDto(profile);
         }
 
-        public async Task<ProfileResponseDto> GetByUserName(string emailId)
+        public async Task<ProfileResponseDto> GetByUserName(string name)
         {
-            var profile = await _profileRepository.FindByEmailIdAsync(emailId);
+            var profile = await _profileRepository.FindByEmailIdAsync(name) ?? await _profileRepository.FindByFullNameAsync(name);
             if (profile == null) throw new Exception("Profile not found");
             return MapToResponseDto(profile);
         }

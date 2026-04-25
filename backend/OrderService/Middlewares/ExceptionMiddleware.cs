@@ -31,9 +31,17 @@ namespace OrderService.Middlewares
         {
             context.Response.ContentType = "application/json";
             
+            string message = "Internal Server Error from the OrderService middleware.";
+
             if (exception is UnauthorizedAccessException)
             {
                 context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                message = exception.Message;
+            }
+            else if (exception is InvalidOperationException || exception is ArgumentException)
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                message = exception.Message;
             }
             else
             {
@@ -43,7 +51,7 @@ namespace OrderService.Middlewares
             var response = new
             {
                 StatusCode = context.Response.StatusCode,
-                Message = exception is UnauthorizedAccessException ? exception.Message : "Internal Server Error from the OrderService middleware.",
+                Message = message,
                 Detailed = exception.Message
             };
 

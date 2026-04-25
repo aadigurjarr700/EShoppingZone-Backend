@@ -75,8 +75,8 @@ namespace CartService.Services
             {
                 if (existingItem != null)
                 {
-                    // Update existing item
-                    existingItem.Quantity = quantity;
+                    // Increment existing item quantity
+                    existingItem.Quantity += quantity;
                 }
                 else
                 {
@@ -100,6 +100,40 @@ namespace CartService.Services
             // Recalculate Total
             cart.TotalPrice = cart.Items.Sum(i => i.Price * i.Quantity);
 
+            await _cartRepository.UpdateCart(cart);
+            return cart;
+        }
+
+        public async Task<Cart> SetCartQuantity(int cartId, int productId, int quantity)
+        {
+            var cart = await GetCartById(cartId);
+            var existingItem = cart.Items.FirstOrDefault(i => i.ProductId == productId);
+
+            if (quantity <= 0)
+            {
+                if (existingItem != null)
+                {
+                    cart.Items.Remove(existingItem);
+                }
+            }
+            else
+            {
+                if (existingItem != null)
+                {
+                    existingItem.Quantity = quantity;
+                }
+            }
+
+            cart.TotalPrice = cart.Items.Sum(i => i.Price * i.Quantity);
+            await _cartRepository.UpdateCart(cart);
+            return cart;
+        }
+
+        public async Task<Cart> ClearCart(int cartId)
+        {
+            var cart = await GetCartById(cartId);
+            cart.Items.Clear();
+            cart.TotalPrice = 0;
             await _cartRepository.UpdateCart(cart);
             return cart;
         }

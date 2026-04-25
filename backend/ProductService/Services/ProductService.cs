@@ -26,7 +26,8 @@ namespace ProductService.Services
                 Image = productDto.Image,
                 Price = productDto.Price,
                 Description = productDto.Description,
-                Specification = productDto.Specification
+                Specification = productDto.Specification,
+                MerchantId = productDto.MerchantId
             };
 
             await _productRepository.AddProduct(product);

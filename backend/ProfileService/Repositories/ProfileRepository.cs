@@ -60,7 +60,8 @@ namespace ProfileService.Repositories
 
         public async Task UpdateProfileAsync(UserProfile userProfile)
         {
-            _context.UserProfiles.Update(userProfile);
+            // The entity is already tracked by the DbContext.
+            // Calling Update() on a tracked entity can cause tracking conflicts, especially with child collections.
             await _context.SaveChangesAsync();
         }
 

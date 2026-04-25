@@ -18,6 +18,12 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<CartDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
+
 // Dependency Injection for Repository, Service, and HttpClient
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<ICartService, CartService.Services.CartServiceImplementation>();
@@ -84,6 +90,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAll");
 
 // Custom Exception Middleware
 app.UseMiddleware<CartService.Middlewares.ExceptionMiddleware>();

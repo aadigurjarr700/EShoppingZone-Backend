@@ -72,6 +72,20 @@ namespace ProductService.Controllers
         [Authorize(Roles = "MERCHANT,ADMIN")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
+            var product = await _productService.GetProductById(id);
+            if (product == null) return NotFound("Product not found.");
+
+            var userRole = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+            var userIdStr = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            if (userRole == "MERCHANT" && int.TryParse(userIdStr, out int userId))
+            {
+                if (product.MerchantId != userId)
+                {
+                    return Forbid("You do not have permission to delete this product.");
+                }
+            }
+
             await _productService.DeleteProductById(id);
             return Ok("Product deleted successfully.");
         }

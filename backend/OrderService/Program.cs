@@ -19,10 +19,17 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<OrderDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
+
 // Dependency Injection
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderService, OrderService.Services.OrderServiceImplementation>();
 builder.Services.AddHttpClient(); // Registers IHttpClientFactory for HTTP calls
+builder.Services.AddHttpContextAccessor();
 
 // JWT Authentication Configuration
 var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"]);
@@ -85,6 +92,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAll");
 
 // Global Exception Middleware
 app.UseMiddleware<ExceptionMiddleware>();

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using OrderService.Data;
 using OrderService.DTOs;
@@ -16,13 +17,15 @@ namespace OrderService.Services
         private readonly OrderDbContext _context;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public OrderServiceImplementation(IOrderRepository orderRepository, OrderDbContext context, IHttpClientFactory httpClientFactory, IConfiguration configuration)
+        public OrderServiceImplementation(IOrderRepository orderRepository, OrderDbContext context, IHttpClientFactory httpClientFactory, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _orderRepository = orderRepository;
             _context = context;
             _httpClientFactory = httpClientFactory;
             _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IList<Orders>> GetAllOrders()
@@ -85,7 +88,7 @@ namespace OrderService.Services
             // Call WalletService before persisting the order
             var walletSuccess = await PayViaWallet(customerId, cart.TotalPrice);
             if (!walletSuccess)
-                throw new InvalidOperationException("Wallet payment failed. Insufficient balance or service unavailable.");
+                throw new InvalidOperationException("Insufficient balance in your E-Wallet to complete this order.");
 
             // Proceed to place order atomically if payment was successful
             await using var transaction = await _context.Database.BeginTransactionAsync();
@@ -136,15 +139,24 @@ namespace OrderService.Services
             try
             {
                 var client = _httpClientFactory.CreateClient();
+                var token = _httpContextAccessor.HttpContext?.Request.Headers["Authorization"].ToString();
+                
+                if (!string.IsNullOrEmpty(token))
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", token);
+                }
+
                 var walletServiceUrl = _configuration["WalletServiceUrl"] ?? "http://localhost:5111";
                 
-                // Mock implementation for WalletService since it hasn't been built yet
-                // Normally we would POST to /api/wallets/pay
-                // var response = await client.PostAsync($"{walletServiceUrl}/api/wallets/pay?customerId={customerId}&amount={amount}", null);
-                // return response.IsSuccessStatusCode;
-
-                Console.WriteLine($"[Mock] Paid {amount} via WalletService for Customer {customerId}");
-                return true; // Assume success for now
+                var response = await client.PostAsync($"{walletServiceUrl}/api/wallet/payMoney?customerId={customerId}&amount={amount}", null);
+                
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine($"Successfully paid {amount} via WalletService for Customer {customerId}");
+                    return true;
+                }
+                
+                return false;
             }
             catch
             {

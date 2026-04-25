@@ -30,5 +30,7 @@ namespace ProductService.Entities
         public string Description { get; set; } = string.Empty;
 
         public Dictionary<string, string> Specification { get; set; } = new Dictionary<string, string>();
+
+        public int? MerchantId { get; set; }
     }
 }

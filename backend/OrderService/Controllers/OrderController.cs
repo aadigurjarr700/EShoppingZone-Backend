@@ -29,7 +29,7 @@ namespace OrderService.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "ADMIN,MERCHANT")]
         public async Task<IActionResult> GetAllOrders()
         {
             var orders = await _orderService.GetAllOrders();
@@ -45,7 +45,7 @@ namespace OrderService.Controllers
         }
 
         [HttpPost("placeOrder")]
-        [Authorize(Roles = "CUSTOMER")]
+        [Authorize(Roles = "CUSTOMER,MERCHANT")]
         public async Task<IActionResult> PlaceOrder([FromBody] CheckoutRequest request)
         {
             var customerId = GetCurrentUserId();
@@ -56,7 +56,7 @@ namespace OrderService.Controllers
         }
 
         [HttpPost("onlinePayment")]
-        [Authorize(Roles = "CUSTOMER")]
+        [Authorize(Roles = "CUSTOMER,MERCHANT")]
         public async Task<IActionResult> OnlinePayment([FromBody] CheckoutRequest request)
         {
             var customerId = GetCurrentUserId();
@@ -67,7 +67,7 @@ namespace OrderService.Controllers
         }
 
         [HttpPost("storeAddress")]
-        [Authorize(Roles = "CUSTOMER")]
+        [Authorize(Roles = "CUSTOMER,MERCHANT")]
         public async Task<IActionResult> StoreAddress([FromQuery] int orderId, [FromBody] Address address)
         {
             var customerId = GetCurrentUserId();
