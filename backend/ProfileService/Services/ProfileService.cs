@@ -152,7 +152,7 @@ namespace ProfileService.Services
             var user = await _profileRepository.FindByEmailIdAsync(changePasswordDto.EmailId);
             if (user == null || !BCrypt.Net.BCrypt.Verify(changePasswordDto.OldPassword, user.Password))
             {
-                throw new Exception("Invalid current password");
+                throw new UnauthorizedAccessException("Invalid current password");
             }
 
             user.Password = BCrypt.Net.BCrypt.HashPassword(changePasswordDto.NewPassword);

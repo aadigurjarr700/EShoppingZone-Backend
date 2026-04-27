@@ -12,6 +12,7 @@ namespace ProductService.Interfaces
         Task<IList<Product>> FindByProductName(string name);
         Task<IList<Product>> FindByCategory(string category);
         Task<IList<Product>> FindByProductType(string type);
+        Task<IList<Product>> FindByMerchantId(int merchantId);
         Task UpdateProduct(Product product);
         Task DeleteProductById(int id);
     }

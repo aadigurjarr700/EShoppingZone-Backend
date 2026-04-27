@@ -21,6 +21,11 @@ namespace ProductService.Controllers
         [Authorize(Roles = "MERCHANT,ADMIN")]
         public async Task<IActionResult> AddProduct([FromBody] AddProductDto productDto)
         {
+            // Auto-assign MerchantId from JWT token
+            var userIdStr = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (int.TryParse(userIdStr, out int userId))
+                productDto.MerchantId = userId;
+
             await _productService.AddProducts(productDto);
             return Ok("Product added successfully.");
         }
@@ -57,6 +62,14 @@ namespace ProductService.Controllers
         public async Task<IActionResult> GetProductByType(string type)
         {
             var products = await _productService.GetProductsByType(type);
+            return Ok(products);
+        }
+
+        [HttpGet("merchant/{merchantId}")]
+        [Authorize(Roles = "MERCHANT,ADMIN")]
+        public async Task<IActionResult> GetProductsByMerchant(int merchantId)
+        {
+            var products = await _productService.GetProductsByMerchant(merchantId);
             return Ok(products);
         }
 

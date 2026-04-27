@@ -27,6 +27,8 @@ namespace ProductService.Services
                 Price = productDto.Price,
                 Description = productDto.Description,
                 Specification = productDto.Specification,
+                Rating = productDto.Rating ?? new Dictionary<int, double>(),
+                Review = productDto.Review ?? new Dictionary<int, string>(),
                 MerchantId = productDto.MerchantId
             };
 
@@ -61,6 +63,11 @@ namespace ProductService.Services
             return await _productRepository.FindByProductType(type);
         }
 
+        public async Task<IList<Product>> GetProductsByMerchant(int merchantId)
+        {
+            return await _productRepository.FindByMerchantId(merchantId);
+        }
+
         public async Task UpdateProducts(int id, AddProductDto productDto)
         {
             var existingProduct = await GetProductById(id);
@@ -72,6 +79,10 @@ namespace ProductService.Services
             existingProduct.Price = productDto.Price;
             existingProduct.Description = productDto.Description;
             existingProduct.Specification = productDto.Specification;
+            if (productDto.Rating != null && productDto.Rating.Count > 0)
+                existingProduct.Rating = productDto.Rating;
+            if (productDto.Review != null && productDto.Review.Count > 0)
+                existingProduct.Review = productDto.Review;
 
             await _productRepository.UpdateProduct(existingProduct);
         }

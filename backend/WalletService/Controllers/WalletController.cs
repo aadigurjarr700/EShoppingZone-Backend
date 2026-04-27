@@ -30,7 +30,7 @@ namespace WalletService.Controllers
         }
 
         [HttpPost("addNew")]
-        [Authorize(Roles = "CUSTOMER,MERCHANT")]
+        [Authorize(Roles = "CUSTOMER,MERCHANT,ADMIN")]
         public async Task<IActionResult> AddNewWallet()
         {
             var customerId = GetCurrentUserId();

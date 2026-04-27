@@ -78,9 +78,20 @@ namespace OrderService.Controllers
         }
 
         [HttpPut("changeStatus")]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize]
         public async Task<IActionResult> ChangeStatus([FromQuery] int orderId, [FromQuery] string status)
         {
+            var customerId = GetCurrentUserId();
+            var order = await _orderService.GetOrderById(orderId);
+
+            if (!User.IsInRole("ADMIN") && !User.IsInRole("MERCHANT"))
+            {
+                if (order.CustomerId != customerId || status.ToUpper() != "CANCELLED")
+                {
+                    return Forbid();
+                }
+            }
+
             await _orderService.ChangeStatus(status, orderId);
             return Ok($"Order status updated to {status}.");
         }

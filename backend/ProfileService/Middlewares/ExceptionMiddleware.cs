@@ -47,7 +47,7 @@ namespace ProfileService.Middlewares
             var response = new
             {
                 StatusCode = context.Response.StatusCode,
-                Message = exception is UnauthorizedAccessException ? exception.Message : "Internal Server Error from the custom middleware.",
+                Message = exception.Message,
                 Detailed = exception.InnerException != null ? exception.InnerException.Message : exception.Message
             };
 

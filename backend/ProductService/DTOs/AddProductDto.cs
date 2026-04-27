@@ -11,6 +11,8 @@ namespace ProductService.DTOs
         public decimal Price { get; set; }
         public string Description { get; set; } = string.Empty;
         public Dictionary<string, string> Specification { get; set; } = new Dictionary<string, string>();
+        public Dictionary<int, double> Rating { get; set; } = new Dictionary<int, double>();
+        public Dictionary<int, string> Review { get; set; } = new Dictionary<int, string>();
         public int? MerchantId { get; set; }
     }
 }

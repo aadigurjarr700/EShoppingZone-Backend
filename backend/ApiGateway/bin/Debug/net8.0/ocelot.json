@@ -1,0 +1,77 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/gateway/profiles/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "DownstreamPathTemplate": "/api/profiles/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5107 } ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/profiles",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "DownstreamPathTemplate": "/api/profiles",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5107 } ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/products/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "DownstreamPathTemplate": "/api/products/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5108 } ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/products",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "DownstreamPathTemplate": "/api/products",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5108 } ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/carts/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "DownstreamPathTemplate": "/api/carts/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5109 } ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/carts",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "DownstreamPathTemplate": "/api/carts",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5109 } ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/orders/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "DownstreamPathTemplate": "/api/orders/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5110 } ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/orders",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "DownstreamPathTemplate": "/api/orders",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5110 } ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/wallet/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "DownstreamPathTemplate": "/api/wallet/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5111 } ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/wallet",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "DownstreamPathTemplate": "/api/wallet",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5111 } ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5200"
+  }
+}

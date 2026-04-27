@@ -54,6 +54,13 @@ namespace ProductService.Repositories
                 .ToListAsync();
         }
 
+        public async Task<IList<Product>> FindByMerchantId(int merchantId)
+        {
+            return await _context.Products
+                .Where(p => p.MerchantId == merchantId)
+                .ToListAsync();
+        }
+
         public async Task UpdateProduct(Product product)
         {
             _context.Products.Update(product);
