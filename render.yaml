@@ -1,0 +1,122 @@
+services:
+  - type: web
+    name: eshopping-profile
+    runtime: docker
+    dockerfilePath: ./backend/ProfileService/Dockerfile
+    dockerContext: .
+    plan: free
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ASPNETCORE_URLS
+        value: http://+:8080
+      - key: ConnectionStrings__DefaultConnection
+        sync: false
+      - key: Jwt__Key
+        sync: false
+      - key: Jwt__Issuer
+        value: EShoppingZone
+      - key: Jwt__Audience
+        value: EShoppingZoneUsers
+
+  - type: web
+    name: eshopping-product
+    runtime: docker
+    dockerfilePath: ./backend/ProductService/Dockerfile
+    dockerContext: .
+    plan: free
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ASPNETCORE_URLS
+        value: http://+:8080
+      - key: ConnectionStrings__DefaultConnection
+        sync: false
+      - key: Jwt__Key
+        sync: false
+      - key: Jwt__Issuer
+        value: EShoppingZone
+      - key: Jwt__Audience
+        value: EShoppingZoneUsers
+
+  - type: web
+    name: eshopping-cart
+    runtime: docker
+    dockerfilePath: ./backend/CartService/Dockerfile
+    dockerContext: .
+    plan: free
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ASPNETCORE_URLS
+        value: http://+:8080
+      - key: ConnectionStrings__DefaultConnection
+        sync: false
+      - key: Jwt__Key
+        sync: false
+      - key: Jwt__Issuer
+        value: EShoppingZone
+      - key: Jwt__Audience
+        value: EShoppingZoneUsers
+      - key: ProductServiceUrl
+        value: https://eshopping-product.onrender.com
+
+  - type: web
+    name: eshopping-order
+    runtime: docker
+    dockerfilePath: ./backend/OrderService/Dockerfile
+    dockerContext: .
+    plan: free
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ASPNETCORE_URLS
+        value: http://+:8080
+      - key: ConnectionStrings__DefaultConnection
+        sync: false
+      - key: Jwt__Key
+        sync: false
+      - key: Jwt__Issuer
+        value: EShoppingZone
+      - key: Jwt__Audience
+        value: EShoppingZoneUsers
+      - key: ProductServiceUrl
+        value: https://eshopping-product.onrender.com
+      - key: WalletServiceUrl
+        value: https://eshopping-wallet.onrender.com
+
+  - type: web
+    name: eshopping-wallet
+    runtime: docker
+    dockerfilePath: ./backend/WalletService/Dockerfile
+    dockerContext: .
+    plan: free
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ASPNETCORE_URLS
+        value: http://+:8080
+      - key: ConnectionStrings__DefaultConnection
+        sync: false
+      - key: Jwt__Key
+        sync: false
+      - key: Jwt__Issuer
+        value: EShoppingZone
+      - key: Jwt__Audience
+        value: EShoppingZoneUsers
+      - key: Razorpay__KeyId
+        sync: false
+      - key: Razorpay__KeySecret
+        sync: false
+
+  - type: web
+    name: eshopping-gateway
+    runtime: docker
+    dockerfilePath: ./backend/ApiGateway/Dockerfile
+    dockerContext: .
+    plan: free
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ASPNETCORE_URLS
+        value: http://+:8080

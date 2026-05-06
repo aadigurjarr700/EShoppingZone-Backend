@@ -1,0 +1,77 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/gateway/profiles/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "DownstreamPathTemplate": "/api/profiles/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "eshopping-profile.onrender.com", "Port": 443 } ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/profiles",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "DownstreamPathTemplate": "/api/profiles",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "eshopping-profile.onrender.com", "Port": 443 } ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/products/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "DownstreamPathTemplate": "/api/products/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "eshopping-product.onrender.com", "Port": 443 } ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/products",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "DownstreamPathTemplate": "/api/products",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "eshopping-product.onrender.com", "Port": 443 } ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/carts/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "DownstreamPathTemplate": "/api/carts/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "eshopping-cart.onrender.com", "Port": 443 } ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/carts",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "DownstreamPathTemplate": "/api/carts",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "eshopping-cart.onrender.com", "Port": 443 } ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/orders/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "DownstreamPathTemplate": "/api/orders/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "eshopping-order.onrender.com", "Port": 443 } ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/orders",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "DownstreamPathTemplate": "/api/orders",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "eshopping-order.onrender.com", "Port": 443 } ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/wallet/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "DownstreamPathTemplate": "/api/wallet/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "eshopping-wallet.onrender.com", "Port": 443 } ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/wallet",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
+      "DownstreamPathTemplate": "/api/wallet",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "eshopping-wallet.onrender.com", "Port": 443 } ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://eshopping-gateway.onrender.com"
+  }
+}
