@@ -146,7 +146,7 @@ namespace OrderService.Services
                     client.DefaultRequestHeaders.Add("Authorization", token);
                 }
 
-                var walletServiceUrl = _configuration["WalletServiceUrl"] ?? "http://localhost:5111";
+                var walletServiceUrl = _configuration["WalletServiceUrl"] ?? "https://eshopping-wallet.onrender.com";
                 
                 var response = await client.PostAsync($"{walletServiceUrl}/api/wallet/payMoney?customerId={customerId}&amount={amount}", null);
                 
