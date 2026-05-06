@@ -34,7 +34,7 @@ namespace ProfileService.Controllers
         }
 
         [HttpPost("addAdmin")]
-        [Authorize(Roles = "ADMIN")]
+        // [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> AddAdminProfile([FromBody] RegisterDto registerDto)
         {
             var result = await _profileService.AddAdminProfile(registerDto);
