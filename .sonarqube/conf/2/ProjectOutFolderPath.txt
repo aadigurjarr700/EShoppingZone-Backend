@@ -1,0 +1,1 @@
+/Users/adityagurjar/Documents/EShoppingZone-Backend/.sonarqube/out/2

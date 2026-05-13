@@ -1,0 +1,28 @@
+Product projects
+---------------------------------------
+/Users/adityagurjar/Documents/EShoppingZone-Backend/backend/CartService/CartService.csproj
+/Users/adityagurjar/Documents/EShoppingZone-Backend/backend/WalletService/WalletService.csproj
+/Users/adityagurjar/Documents/EShoppingZone-Backend/backend/ProductService/ProductService.csproj
+/Users/adityagurjar/Documents/EShoppingZone-Backend/backend/OrderService/OrderService.csproj
+/Users/adityagurjar/Documents/EShoppingZone-Backend/backend/ProfileService/ProfileService.csproj
+
+
+Test projects
+---------------------------------------
+
+
+Invalid projects
+---------------------------------------
+{none}
+
+
+Skipped projects
+---------------------------------------
+{none}
+
+
+Excluded projects
+---------------------------------------
+{none}
+
+
