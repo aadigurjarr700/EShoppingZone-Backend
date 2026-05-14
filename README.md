@@ -33,7 +33,6 @@ The backend follows a **microservices architecture**, where each service owns it
 | API Gateway | YARP Reverse Proxy |
 | Inter-Service Communication | IHttpClientFactory |
 | Logging | Serilog |
-| Health Monitoring | ASP.NET Health Checks |
 | Containerization | Docker |
 | Orchestration | Docker Compose / Kubernetes |
 | CI/CD | GitHub Actions |
