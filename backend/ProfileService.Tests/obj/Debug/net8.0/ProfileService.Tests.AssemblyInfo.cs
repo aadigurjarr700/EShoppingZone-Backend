@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ProfileService.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f3ed41a37ca906aaa2bd5bb31ab201827cd9ad0b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+26ee19ec7028c35045b7dafee9b9871f733fe8b0")]
 [assembly: System.Reflection.AssemblyProductAttribute("ProfileService.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ProfileService.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

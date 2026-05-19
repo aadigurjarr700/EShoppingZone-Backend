@@ -41,27 +41,38 @@ The backend follows a **microservices architecture**, where each service owns it
 
 # High-Level Architecture
 
-```text
-                    +----------------------+
-                    |   React Frontend     |
-                    |   (Separate App)     |
-                    +----------+-----------+
-                               |
-                               |
-                               v
-                  +---------------------------+
-                  |       API Gateway         |
-                  |   YARP Reverse Proxy      |
-                  +------------+--------------+
-                               |
-      -------------------------------------------------------------
-      |              |               |              |             |
-      v              v               v              v             v
+```mermaid
+graph TD
+    Client[React Frontend]
 
-+-------------+ +-------------+ +-------------+ +-------------+ +-------------+
-| Profile API | | Product API | | Cart API    | | Order API   | | Wallet API  |
-+-------------+ +-------------+ +-------------+ +-------------+ +-------------+
-      |              |               |              |             |
-      v              v               v              v             v
- SQL Server      SQL Server      SQL Server      SQL Server    SQL Server
- DB              DB              DB              DB            DB
+    subgraph "EShoppingZone Microservices (.NET 8)"
+        ApiGateway[API Gateway<br/>YARP Reverse Proxy]
+        Profile[Profile API]
+        Product[Product API]
+        Cart[Cart API]
+        Order[Order API]
+        Wallet[Wallet API]
+    end
+
+    subgraph "Databases (SQL Server)"
+        DB_Profile[(Profile DB)]
+        DB_Product[(Product DB)]
+        DB_Cart[(Cart DB)]
+        DB_Order[(Order DB)]
+        DB_Wallet[(Wallet DB)]
+    end
+
+    Client --> ApiGateway
+    
+    ApiGateway --> Profile
+    ApiGateway --> Product
+    ApiGateway --> Cart
+    ApiGateway --> Order
+    ApiGateway --> Wallet
+
+    Profile --> DB_Profile
+    Product --> DB_Product
+    Cart --> DB_Cart
+    Order --> DB_Order
+    Wallet --> DB_Wallet
+```
