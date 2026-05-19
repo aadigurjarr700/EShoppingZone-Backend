@@ -250,6 +250,97 @@ erDiagram
 
 ---
 
+## Low-Level Design (LLD) - Checkout Workflow
+
+The following sequence diagram illustrates the low-level interactions between the microservices when a customer places an order.
+
+```mermaid
+sequenceDiagram
+    actor Customer
+    participant Gateway as API Gateway
+    participant Order as Order Service
+    participant Cart as Cart Service
+    participant Wallet as Wallet Service
+    participant DB as SQL Server
+
+    Customer->>Gateway: POST /api/orders (Checkout)
+    Gateway->>Order: Forward Request
+    Order->>Cart: GET /api/cart/{userId} (Fetch Cart Items)
+    Cart-->>Order: Return Cart Items & Total
+    Order->>Wallet: POST /api/wallet/deduct (Deduct Amount)
+    Wallet->>DB: Update Wallet Balance
+    DB-->>Wallet: Success
+    Wallet-->>Order: Payment Successful
+    Order->>DB: Save Order & Order Items
+    DB-->>Order: Order Created
+    Order->>Cart: DELETE /api/cart/{userId} (Clear Cart)
+    Cart-->>Order: Cart Cleared
+    Order-->>Gateway: 200 OK (Order Confirmed)
+    Gateway-->>Customer: Order Details Response
+```
+
+---
+
+## UML Class Diagram (Domain Models)
+
+The following UML class diagram represents the core structural relationships and behaviors within the backend domains.
+
+```mermaid
+classDiagram
+    class UserProfile {
+        +String UserId
+        +String FullName
+        +String Email
+        +String Role
+        +Register()
+        +Login()
+        +UpdateProfile()
+    }
+
+    class Product {
+        +int ProductId
+        +String Name
+        +double Price
+        +int StockQuantity
+        +UpdateStock()
+        +ApplyDiscount()
+    }
+
+    class Cart {
+        +int CartId
+        +String UserId
+        +double TotalAmount
+        +AddItem(Product, int)
+        +RemoveItem(int)
+        +ClearCart()
+    }
+
+    class Order {
+        +int OrderId
+        +String UserId
+        +double TotalAmount
+        +String Status
+        +ProcessPayment()
+        +UpdateStatus()
+    }
+
+    class Wallet {
+        +int WalletId
+        +String UserId
+        +double Balance
+        +AddFunds(double)
+        +DeductFunds(double)
+    }
+
+    UserProfile "1" --> "1" Cart : owns
+    UserProfile "1" --> "*" Order : places
+    UserProfile "1" --> "1" Wallet : owns
+    Cart "1" o-- "*" Product : contains
+    Order "1" o-- "*" Product : includes
+```
+
+---
+
 ## Services
 
 | Service | Responsibility |
